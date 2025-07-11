@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Human 登録</title>
+</head>
+<body>
+  <h1>新しい人を登録</h1>
+  <form action="/add" method="post">
+    <label>ID: <input type="text" name="id" required></label><br>
+    <label>名前: <input type="text" name="name" required></label><br>
+    <label>年齢: <input type="number" name="age" required></label><br>
+    <button type="submit">登録</button>
+  </form>
+
+  <hr>
+
+  <h2>登録済み一覧</h2>
+  <table border="1">
+    <tr>
+      <th>ID</th>
+      <th>名前</th>
+      <th>年齢</th>
+    </tr>
+    {% for human in humans %}
+    <tr>
+      <td>{{ human.Id }}</td>
+      <td>{{ human.Name }}</td>
+      <td>{{ human.Age }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>

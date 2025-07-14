@@ -29,5 +29,5 @@
 
 - ③取得した `sha256` を変数に更新する（terraform/terraform.tfvars）
 
-- ④**https://www.yoshio-study.com**
+- ④**https://yoshio-study.com**
 

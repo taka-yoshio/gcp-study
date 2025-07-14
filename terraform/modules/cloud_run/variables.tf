@@ -31,14 +31,6 @@ variable "instance_connection_name" {
   description = "Cloud SQL connection name"
 }
 
-variable "db_user" {
-  type = string
-}
-
-variable "db_pass" {
-  type = string
-}
-
 variable "db_name" {
   type = string
 }

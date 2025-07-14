@@ -1,3 +1,5 @@
+data "google_project" "project" {}
+
 provider "google" {
   project = "terraform-study-465601"
   region  = "asia-northeast1"
@@ -14,9 +16,7 @@ module "cloud_sql" {
   source        = "./modules/cloud_sql"
   instance_name = "my-sql-instance"
   region        = "asia-northeast1"
-  db_name       = "testdb"
-  db_user       = "user"
-  db_password   = "password"
+  db_name       = "humans"
 }
 
 module "cloud_run" {
@@ -25,7 +25,12 @@ module "cloud_run" {
   location     = "asia-northeast1"
   image        = "asia-northeast1-docker.pkg.dev/terraform-study-465601/docker-repo/gcp-study-app@sha256:${var.app_image_digest}"
   instance_connection_name = module.cloud_sql.connection_name
-  db_user                  = "user"
-  db_pass                  = "password"
-  db_name                  = "testdb"
+  db_name                  = "humans"
+}
+
+module "secrets_manager_iam" {
+  source = "./modules/secrets_manager"
+  project_id                 = "terraform-study-465601"
+  secret_names               = ["db_user", "db_password"]
+  member_service_account_email = "serviceAccount:${data.google_project.project.number}-compute@developer.gserviceaccount.com"
 }

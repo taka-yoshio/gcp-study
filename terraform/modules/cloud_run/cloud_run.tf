@@ -26,18 +26,26 @@ resource "google_cloud_run_service" "this" {
         }
 
         env {
-          name  = "DB_USER"
-          value = var.db_user
+          name = "DB_USER"
+          value_from {
+            secret_key_ref {
+              name = "db_user" # Secret Managerに登録したユーザー名用のシークレット名
+              key  = "latest"
+            }
+          }
         }
-
         env {
-          name  = "DB_PASS"
-          value = var.db_pass
+          name = "DB_PASS"
+          value_from {
+            secret_key_ref {
+              name = "db_password" # Secret Managerに登録したパスワード用のシークレット名
+              key  = "latest"
+            }
+          }
         }
-
         env {
           name  = "DB_NAME"
-          value = var.db_name
+          value = var.db_name # DB名はシークレットではないので、今まで通りでOK
         }
       }
     }

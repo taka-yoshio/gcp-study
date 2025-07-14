@@ -23,8 +23,7 @@ module "cloud_run" {
   source       = "./modules/cloud_run"
   service_name = "gcp-study-app"
   location     = "asia-northeast1"
-  image        = "asia-northeast1-docker.pkg.dev/terraform-study-465601/docker-repo/gcp-study-app:latest"
-
+  image        = "asia-northeast1-docker.pkg.dev/terraform-study-465601/docker-repo/gcp-study-app@sha256:${var.app_image_digest}"
   instance_connection_name = module.cloud_sql.connection_name
   db_user                  = "user"
   db_pass                  = "password"

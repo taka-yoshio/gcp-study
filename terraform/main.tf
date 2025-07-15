@@ -55,3 +55,9 @@ module "cloud_storage" {
   bucket_name = "pdf-uploads-terraform-study-465601" # GCP全体でユニークな名前に変更してください
   location    = "ASIA-NORTHEAST1"
 }
+
+resource "google_storage_bucket_iam_member" "storage_writer" {
+  bucket = module.cloud_storage.bucket_name
+  role   = "roles/storage.objectAdmin"
+  member = "serviceAccount:${data.google_project.project.number}-compute@developer.gserviceaccount.com"
+}

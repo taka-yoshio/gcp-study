@@ -7,8 +7,11 @@ services:
       - "8080:8080"
     volumes:
       - .:/app 
+      - ./gcp-key.json:/gcp/key.json:ro
     env_file:        
     - .env.development
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/gcp/key.json
     depends_on:
       db:
         condition: service_healthy

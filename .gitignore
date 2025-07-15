@@ -1,4 +1,5 @@
 terraform/.terraform/
 .DS_Store
 .terraform
+gcp-key.json
 __pycache__/

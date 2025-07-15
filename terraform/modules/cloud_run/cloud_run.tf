@@ -48,6 +48,10 @@ resource "google_cloud_run_service" "this" {
           name  = "DB_NAME"
           value = var.db_name # DB名はシークレットではないので、今まで通りでOK
         }
+        env {
+          name  = "BUCKET_NAME"
+          value = var.bucket_name
+        }
       }
     }
   }

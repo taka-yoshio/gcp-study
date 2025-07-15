@@ -34,3 +34,7 @@ variable "instance_connection_name" {
 variable "db_name" {
   type = string
 }
+
+variable "bucket_name" {
+  type = string
+}

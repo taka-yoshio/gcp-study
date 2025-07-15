@@ -7,6 +7,10 @@
 - ALBやらVPCやらネットワーク関連  
 - 整理
 
+## ローカル開発環境の構築
+-  ①rootで`docker-compose up -d --build`を実行
+-  ②**http://localhost:8080**
+
 ## デプロイ手順
 
 - ①Dockerイメージを作成  
@@ -24,3 +28,6 @@
    ```
 
 - ③取得した `sha256` を変数に更新する（terraform/terraform.tfvars）
+
+- ④**https://yoshio-study.com**
+

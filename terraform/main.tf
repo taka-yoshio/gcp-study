@@ -34,3 +34,18 @@ module "secrets_manager_iam" {
   secret_names               = ["db_user", "db_password"]
   member_service_account_email = "serviceAccount:${data.google_project.project.number}-compute@developer.gserviceaccount.com"
 }
+
+module "load_balancer" {
+  source                 = "./modules/load_balancer"
+  project_id             = "terraform-study-465601"
+  domain_name            = "yoshio-study.com"
+  cloud_run_service_name = module.cloud_run.service_name
+  location               = module.cloud_run.location
+}
+
+module "dns" {
+  source            = "./modules/dns"
+  managed_zone_name = "yoshio-study-com"
+  domain_name       = "yoshio-study.com"
+  load_balancer_ip  = module.load_balancer.load_balancer_ip
+}

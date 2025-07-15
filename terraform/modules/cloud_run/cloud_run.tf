@@ -6,6 +6,7 @@ resource "google_cloud_run_service" "this" {
     metadata {
       annotations = {
         "run.googleapis.com/cloudsql-instances" = var.instance_connection_name
+        "run.googleapis.com/ingress"            = "internal-and-cloud-load-balancing"
       }
     }
 

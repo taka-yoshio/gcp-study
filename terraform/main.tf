@@ -49,3 +49,9 @@ module "dns" {
   domain_name       = "yoshio-study.com"
   load_balancer_ip  = module.load_balancer.load_balancer_ip
 }
+
+module "cloud_storage" {
+  source      = "./modules/cloud_storage"
+  bucket_name = "pdf-uploads-terraform-study-465601" # GCP全体でユニークな名前に変更してください
+  location    = "ASIA-NORTHEAST1"
+}

@@ -10,6 +10,7 @@
 ## ローカル開発環境の構築
 -  ①rootで`docker-compose up -d --build`を実行
 -  ②**http://localhost:8080**
+-  ③ 動作させるにはサービスアカウントの鍵が必要（`gcp-key.json`）
 
 ## デプロイ手順
 

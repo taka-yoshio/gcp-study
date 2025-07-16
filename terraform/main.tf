@@ -56,3 +56,12 @@ module "cloud_storage" {
   bucket_name = "pdf-uploads-${var.project_id}"
   location    = "ASIA-NORTHEAST1"
 }
+
+module "custom_vpc" {
+  source          = "./modules/vpc"
+  project_id      = var.project_id
+  network_name    = "gcp-study"
+  subnet_name     = "my-custom-subnet"
+  subnet_ip_range = "10.0.1.0/24"
+  subnet_region   = var.region
+}

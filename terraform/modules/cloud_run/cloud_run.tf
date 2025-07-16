@@ -11,6 +11,8 @@ resource "google_cloud_run_service" "this" {
     }
 
     spec {
+      service_account_name = "161116822257-compute@developer.gserviceaccount.com"
+
       containers {
         image = var.image
 
@@ -30,27 +32,57 @@ resource "google_cloud_run_service" "this" {
           name = "DB_USER"
           value_from {
             secret_key_ref {
-              name = "db_user" # Secret Managerに登録したユーザー名用のシークレット名
+              name = "db_user"
               key  = "latest"
             }
           }
         }
+
         env {
           name = "DB_PASS"
           value_from {
             secret_key_ref {
-              name = "db_password" # Secret Managerに登録したパスワード用のシークレット名
+              name = "db_password"
               key  = "latest"
             }
           }
         }
+
         env {
           name  = "DB_NAME"
-          value = var.db_name # DB名はシークレットではないので、今まで通りでOK
+          value = var.db_name
         }
+
         env {
           name  = "BUCKET_NAME"
           value = var.bucket_name
+        }
+
+        # env {
+        #   name  = "SA_EMAIL"
+        #   value = var.service_account_email_raw
+        # }
+
+        # env {
+        #   name  = "GOOGLE_CLOUD_PROJECT"
+        #   value = var.project_id
+        # }
+
+        # シークレットファイルのマウント設定
+        volume_mounts {
+          name       = "sa-key-secret"
+          mount_path = "/secrets"
+        }
+      }
+
+      volumes {
+        name = "sa-key-secret"
+        secret {
+          secret_name = "sa-key-storage-upload-prod"
+          items {
+            key  = "latest"
+            path = "sa-key.json"
+          }
         }
       }
     }

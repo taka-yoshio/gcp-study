@@ -38,3 +38,18 @@ variable "db_name" {
 variable "bucket_name" {
   type = string
 }
+
+# variable "service_account_email" {
+#   description = "Cloud Runが使用するサービスアカウントのメールアドレス"
+#   type        = string
+# }
+
+# variable "service_account_email_raw" {
+#   description = "Cloud Runが使用するサービスアカウントのメールアドレス"
+#   type        = string
+# }
+
+# variable "project_id" {
+#   description = "GCPプロジェクトID"
+#   type        = string
+# }

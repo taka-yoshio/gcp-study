@@ -1,1 +1,6 @@
-app_image_digest = "1ac1fb454ac1835998817158c4985d5f30c217cb69dede363bc2f14388a1f097"
+project_id = "terraform-study-465601"
+region = "asia-northeast1"
+db_name = "humans"
+domain_name = "yoshio-study.com"
+app_image_digest = "c8198c58e821f65cbf0a9ba6becabfbce01fe2ff541a2f83d374e8972406f9f9"
+service_account_email = "serviceAccount:161116822257-compute@developer.gserviceaccount.com"

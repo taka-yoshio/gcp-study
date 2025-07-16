@@ -8,6 +8,10 @@ import datetime
 import uuid
 import logging
 
+# Cloud Run 環境であれば、認証ファイルのパスを設定
+if os.environ.get("K_SERVICE"):
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/secrets/sa-key.json"
+
 # ロギングの基本設定
 logging.basicConfig(level=logging.INFO)
 

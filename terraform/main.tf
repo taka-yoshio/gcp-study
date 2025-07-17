@@ -9,7 +9,7 @@ module "artifact_registry" {
   source        = "./modules/artifact_registry"
   project       = var.project_id
   location      = var.region
-  repository_id = "docker-repo"
+  repository_id = var.repository_id
 }
 
 module "cloud_sql" {
@@ -30,7 +30,7 @@ module "cloud_run" {
   service_name             = "gcp-study-app"
   location                 = var.region
   bucket_name              = module.cloud_storage.bucket_name
-  image                    = "${var.region}-docker.pkg.dev/${var.project_id}/docker-repo/gcp-study-app@sha256:${var.app_image_digest}"
+  image                    = "${var.region}-docker.pkg.dev/${var.project_id}/${var.repository_id}/gcp-study-app@sha256:${var.app_image_digest}"
   instance_connection_name = module.cloud_sql.connection_name
   db_name                  = var.db_name
   vpc_connector_id         = module.vpc_connector.id
@@ -66,7 +66,7 @@ module "dns" {
 module "cloud_storage" {
   source      = "./modules/cloud_storage"
   bucket_name = "pdf-uploads-${var.project_id}"
-  location    = "ASIA-NORTHEAST1"
+  location    = var.storage_location
 }
 
 module "custom_vpc" {
@@ -80,21 +80,21 @@ module "custom_vpc" {
 
 module "private_service_access" {
   source       = "./modules/private_service_access"
-  project_id   = "terraform-study-465601"
+  project_id   = var.project_id
   network_name = module.custom_vpc.network_name
 }
 
 module "vpc_connector" {
   source       = "./modules/vpc_connector"
-  project_id   = "terraform-study-465601"
+  project_id   = var.project_id
   name         = "my-vpc-connector"
-  region       = "asia-northeast1"
+  region       = var.region
   network_name = module.custom_vpc.network_name
 }
 
 module "cloud_armor" {
   source       = "./modules/cloud_armor"
-  project_id   = "terraform-study-465601"
+  project_id   = var.project_id
   policy_name  = "ip-whitelist-policy"
   allowed_ips  = var.allowed_ip_list
 }

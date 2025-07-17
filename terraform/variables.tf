@@ -35,3 +35,15 @@ variable "allowed_ip_list" {
   type        = list(string)
   default     = []
 }
+
+variable "repository_id" {
+  description = "Artifact Registryのリポジトリ名"
+  type        = string
+  default     = "docker-repo"
+}
+
+variable "storage_location" {
+  description = "Cloud Storageのロケーション"
+  type        = string
+  default     = "ASIA-NORTHEAST1"
+}

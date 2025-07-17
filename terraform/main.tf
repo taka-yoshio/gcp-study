@@ -106,3 +106,17 @@ module "bigquery" {
   table_id   = "humans"
   location   = "asia-northeast1"
 }
+
+module "gke" {
+  source               = "./modules/gke"
+  project_id           = var.project_id
+  cluster_name         = "my-gke-cluster"
+  region               = var.region
+  network_self_link    = module.custom_vpc.network_self_link
+  subnetwork_self_link = module.custom_vpc.subnetwork_self_link
+
+  depends_on = [
+    module.custom_vpc
+  ]
+}
+

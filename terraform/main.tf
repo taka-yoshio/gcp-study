@@ -53,6 +53,7 @@ module "load_balancer" {
   domain_name            = var.domain_name
   cloud_run_service_name = module.cloud_run.service_name
   location               = module.cloud_run.location
+  security_policy_link   = module.cloud_armor.self_link
 }
 
 module "dns" {
@@ -89,4 +90,11 @@ module "vpc_connector" {
   name         = "my-vpc-connector"
   region       = "asia-northeast1"
   network_name = module.custom_vpc.network_name
+}
+
+module "cloud_armor" {
+  source       = "./modules/cloud_armor"
+  project_id   = "terraform-study-465601"
+  policy_name  = "ip-whitelist-policy"
+  allowed_ips  = var.allowed_ip_list
 }

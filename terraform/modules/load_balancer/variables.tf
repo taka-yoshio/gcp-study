@@ -17,3 +17,8 @@ variable "location" {
   description = "Cloud Runサービスが存在するリージョン"
   type        = string
 }
+
+variable "security_policy_link" {
+  type    = string
+  default = null
+}

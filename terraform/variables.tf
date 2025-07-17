@@ -29,3 +29,9 @@ variable "domain_name" {
   description = "ドメイン名"
   type        = string
 }
+
+variable "allowed_ip_list" {
+  description = "Cloud Armorで許可するIPアドレスのリスト"
+  type        = list(string)
+  default     = []
+}

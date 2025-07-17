@@ -33,6 +33,7 @@ resource "google_compute_region_network_endpoint_group" "serverless_neg" {
 resource "google_compute_backend_service" "default" {
   project                 = var.project_id
   name                    = "cloudrun-backend-service"
+  security_policy         = var.security_policy_link # Cloud Armorのセキュリティポリシーを適用する場合は、ここで指定
   protocol                = "HTTP" # ロードバランサと裏方（今回はCloud Run）が通信する際の言語（プロトコル）を指定
   load_balancing_scheme   = "EXTERNAL_MANAGED" # どのような種類のロードバランサで使われるかを指定.外部向けの、Google管理のロードバランサで使いますよ
   # このバックエンドサービスが、具体的にどの接続先グループを管理するのかを指定

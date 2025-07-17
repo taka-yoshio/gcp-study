@@ -26,13 +26,18 @@ module "cloud_sql" {
 }
 
 module "cloud_run" {
-  source       = "./modules/cloud_run"
-  service_name = "gcp-study-app"
-  location     = var.region
-  bucket_name  = module.cloud_storage.bucket_name
-  image        = "${var.region}-docker.pkg.dev/${var.project_id}/docker-repo/gcp-study-app@sha256:${var.app_image_digest}"
+  source                   = "./modules/cloud_run"
+  service_name             = "gcp-study-app"
+  location                 = var.region
+  bucket_name              = module.cloud_storage.bucket_name
+  image                    = "${var.region}-docker.pkg.dev/${var.project_id}/docker-repo/gcp-study-app@sha256:${var.app_image_digest}"
   instance_connection_name = module.cloud_sql.connection_name
   db_name                  = var.db_name
+  vpc_connector_id         = module.vpc_connector.id
+
+  depends_on = [
+    module.vpc_connector
+  ]
 }
 
 module "secrets_manager_iam" {
@@ -75,5 +80,13 @@ module "custom_vpc" {
 module "private_service_access" {
   source       = "./modules/private_service_access"
   project_id   = "terraform-study-465601"
+  network_name = module.custom_vpc.network_name
+}
+
+module "vpc_connector" {
+  source       = "./modules/vpc_connector"
+  project_id   = "terraform-study-465601"
+  name         = "my-vpc-connector"
+  region       = "asia-northeast1"
   network_name = module.custom_vpc.network_name
 }

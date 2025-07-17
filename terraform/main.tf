@@ -98,3 +98,11 @@ module "cloud_armor" {
   policy_name  = "ip-whitelist-policy"
   allowed_ips  = var.allowed_ip_list
 }
+
+module "bigquery" {
+  source     = "./modules/bigquery"
+  project_id = "terraform-study-465601"
+  dataset_id = "gcp_study_dataset"
+  table_id   = "humans"
+  location   = "asia-northeast1"
+}

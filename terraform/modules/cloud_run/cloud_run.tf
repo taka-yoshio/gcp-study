@@ -50,6 +50,11 @@ resource "google_cloud_run_service" "this" {
         }
 
         env {
+          name  = "APP_ENV"
+          value = "cloud_run"
+        }
+
+        env {
           name  = "DB_NAME"
           value = var.db_name
         }

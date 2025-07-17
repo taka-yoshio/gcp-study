@@ -9,7 +9,7 @@ import uuid
 import logging
 
 # Cloud Run 環境であれば、認証ファイルのパスを設定
-if os.environ.get("K_SERVICE"):
+if os.environ.get("APP_ENV") == "cloud_run":
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/secrets/sa-key.json"
 
 # ロギングの基本設定

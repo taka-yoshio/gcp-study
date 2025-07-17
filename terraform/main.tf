@@ -14,9 +14,15 @@ module "artifact_registry" {
 
 module "cloud_sql" {
   source        = "./modules/cloud_sql"
+  project_id    = var.project_id
   instance_name = "my-sql-instance"
   region        = var.region
-  db_name       = var.db_name
+  db_name       = "humans"
+  network_name  = module.custom_vpc.network_name
+
+  depends_on = [
+    module.private_service_access
+  ]
 }
 
 module "cloud_run" {
@@ -64,4 +70,10 @@ module "custom_vpc" {
   subnet_name     = "my-custom-subnet"
   subnet_ip_range = "10.0.1.0/24"
   subnet_region   = var.region
+}
+
+module "private_service_access" {
+  source       = "./modules/private_service_access"
+  project_id   = "terraform-study-465601"
+  network_name = module.custom_vpc.network_name
 }

@@ -14,6 +14,10 @@ resource "google_sql_database_instance" "default" {
 
   settings {
     tier = var.tier
+    ip_configuration {
+      ipv4_enabled    = false
+      private_network = var.network_name != null ? "projects/${var.project_id}/global/networks/${var.network_name}" : null
+    }
   }
 }
 

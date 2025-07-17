@@ -18,3 +18,13 @@ variable "db_name" {
   type        = string
   description = "Database name"
 }
+
+variable "network_name" {
+  type    = string
+  default = null
+}
+
+variable "project_id" {
+  description = "GCPプロジェクトID"
+  type        = string
+}

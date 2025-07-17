@@ -58,17 +58,6 @@ resource "google_cloud_run_service" "this" {
           value = var.bucket_name
         }
 
-        # env {
-        #   name  = "SA_EMAIL"
-        #   value = var.service_account_email_raw
-        # }
-
-        # env {
-        #   name  = "GOOGLE_CLOUD_PROJECT"
-        #   value = var.project_id
-        # }
-
-        # シークレットファイルのマウント設定
         volume_mounts {
           name       = "sa-key-secret"
           mount_path = "/secrets"
